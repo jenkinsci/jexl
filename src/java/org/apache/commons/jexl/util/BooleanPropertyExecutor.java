@@ -1,9 +1,10 @@
 /*
- * Copyright 2000-2001,2004 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -29,7 +30,7 @@ import org.apache.commons.logging.Log;
  *
  *  @since 1.0
  *  @author <a href="geirm@apache.org">Geir Magnusson Jr.</a>
- *  @version $Id: BooleanPropertyExecutor.java 398171 2006-04-29 14:57:29Z dion $
+ *  @version $Id: BooleanPropertyExecutor.java 584046 2007-10-12 05:14:37Z proyal $
  */
 public class BooleanPropertyExecutor extends PropertyExecutor {
 
@@ -67,14 +68,22 @@ public class BooleanPropertyExecutor extends PropertyExecutor {
             sb = new StringBuffer("is");
             sb.append(property);
 
-            c = sb.charAt(2);
-
-            if (Character.isLowerCase(c)) {
-                sb.setCharAt(2, Character.toUpperCase(c));
-            }
-
             methodUsed = sb.toString();
             method = introspector.getMethod(clazz, methodUsed, params);
+
+            if (null == method)
+            {
+                c = sb.charAt(2);
+
+                if (Character.isLowerCase(c)) {
+                    sb.setCharAt(2, Character.toUpperCase(c));
+                } else {
+                    sb.setCharAt(2, Character.toLowerCase(c));
+                }
+
+                methodUsed = sb.toString();
+                method = introspector.getMethod(clazz, methodUsed, params);
+            }
 
             if (method != null) {
                 /*
@@ -87,8 +96,13 @@ public class BooleanPropertyExecutor extends PropertyExecutor {
 
                 method = null;
             }
+            /**
+             * pass through application level runtime exceptions
+             */
+        } catch( RuntimeException e ) {
+            throw e;
         } catch (Exception e) {
-            rlog.error("PROGRAMMER ERROR : BooleanPropertyExector() : " + e);
+            rlog.error("PROGRAMMER ERROR : BooleanPropertyExector() : " + e, e);
         }
     }
 }

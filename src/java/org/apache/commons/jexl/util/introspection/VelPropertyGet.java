@@ -1,9 +1,10 @@
 /*
- * Copyright 2002,2004 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -19,12 +20,12 @@ package org.apache.commons.jexl.util.introspection;
 /**
  * Interface defining a 'getter'. For uses when looking for resolution of
  * property references
- * 
+ *
  * $foo.bar
- * 
+ *
  * @since 1.0
  * @author <a href="mailto:geirm@optonline.net">Geir Magnusson Jr.</a>
- * @version $Id: VelPropertyGet.java 398514 2006-05-01 03:44:34Z dion $
+ * @version $Id: VelPropertyGet.java 584050 2007-10-12 05:27:50Z proyal $
  */
 public interface VelPropertyGet {
     /**
@@ -39,7 +40,7 @@ public interface VelPropertyGet {
     /**
      * specifies if this VelPropertyGet is cacheable and able to be reused for
      * this class of object it was returned for.
-     * 
+     *
      * @return true if can be reused for this class, false if not
      */
     boolean isCacheable();
@@ -49,4 +50,12 @@ public interface VelPropertyGet {
      * @return the method name.
      */
     String getMethodName();
+
+    /**
+     * Tell whether the method underlying this 'property' is alive by
+     * checking to see if represents a successful name resolution.
+     *
+     * @return boolean Whether 'property' is alive.
+     */
+    boolean isAlive();
 }

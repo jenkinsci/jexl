@@ -1,9 +1,10 @@
 /*
- * Copyright 2002-2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -16,23 +17,23 @@
 
 package org.apache.commons.jexl.parser;
 
-import org.apache.commons.jexl.JexlContext;
-import org.apache.commons.jexl.util.Coercion;
-import org.apache.commons.jexl.util.Introspector;
-import org.apache.commons.jexl.util.introspection.Info;
-import org.apache.commons.jexl.util.introspection.VelPropertyGet;
-
+import java.lang.reflect.Array;
 import java.util.List;
 import java.util.Map;
-import java.lang.reflect.Array;
+
+import org.apache.commons.jexl.JexlContext;
+import org.apache.commons.jexl.util.Coercion;
+import org.apache.commons.jexl.util.introspection.Info;
+import org.apache.commons.jexl.util.introspection.Uberspect;
+import org.apache.commons.jexl.util.introspection.VelPropertyGet;
 
 /**
  * Like an ASTIdentifier, but with array access allowed.
- * 
+ *
  * $foo[2]
- * 
+ *
  * @author <a href="mailto:geirm@apache.org">Geir Magnusson Jr.</a>
- * @version $Id: ASTArrayAccess.java 398180 2006-04-29 15:40:35Z dion $
+ * @version $Id: ASTArrayAccess.java 548229 2007-06-18 06:11:32Z dion $
  */
 public class ASTArrayAccess extends SimpleNode {
     /** dummy velocity info. */
@@ -40,7 +41,7 @@ public class ASTArrayAccess extends SimpleNode {
 
     /**
      * Create the node given an id.
-     * 
+     *
      * @param id node id.
      */
     public ASTArrayAccess(int id) {
@@ -49,7 +50,7 @@ public class ASTArrayAccess extends SimpleNode {
 
     /**
      * Create a node with the given parser and id.
-     * 
+     *
      * @param p a parser.
      * @param id node id.
      */
@@ -64,9 +65,9 @@ public class ASTArrayAccess extends SimpleNode {
 
     /**
      * evaluate array access upon a base object.
-     * 
+     *
      * foo.bar[2]
-     * 
+     *
      * makes me rethink the array operator :)
      * @param jc the {@link JexlContext} to evaluate against.
      * @param obj not used.
@@ -88,7 +89,7 @@ public class ASTArrayAccess extends SimpleNode {
                 return null;
             }
 
-            result = evaluateExpr(result, loc);
+            result = evaluateExpr(result, loc, getUberspect());
         }
 
         return result;
@@ -114,7 +115,7 @@ public class ASTArrayAccess extends SimpleNode {
                 return null;
             }
 
-            o = evaluateExpr(o, loc);
+            o = evaluateExpr(o, loc, getUberspect());
         }
 
         return o;
@@ -123,19 +124,20 @@ public class ASTArrayAccess extends SimpleNode {
     /**
      * Evaluate the Array expression 'loc' on the given object, o.
      * e.g. in 'a[2]', <code>2</code> is 'loc' and <code>a</code> is 'o'.
-     * 
+     *
      * If o or loc are null, null is returned.
      * If o is a Map, o.get(loc) is returned.
      * If o is a List, o.get(loc) is returned. loc must resolve to an int value.
      * If o is an Array, o[loc] is returned. loc must resolve to an int value.
      * Otherwise loc is treated as a bean property of o.
-     *  
+     *
      * @param o an object to be accessed using the array operator or '.' operator.
      * @param loc the index of the object to be returned.
+     * @param uberspect Uberspector to use during evaluation
      * @return the resulting value.
      * @throws Exception on any error.
      */
-    public static Object evaluateExpr(Object o, Object loc) throws Exception {
+    public static Object evaluateExpr(Object o, Object loc, Uberspect uberspect) throws Exception {
         /*
          * following the JSTL EL rules
          */
@@ -177,7 +179,7 @@ public class ASTArrayAccess extends SimpleNode {
 
             String s = loc.toString();
 
-            VelPropertyGet vg = Introspector.getUberspect().getPropertyGet(o, s, DUMMY);
+            VelPropertyGet vg = uberspect.getPropertyGet(o, s, DUMMY);
 
             if (vg != null) {
                 return vg.invoke(o);
@@ -189,7 +191,7 @@ public class ASTArrayAccess extends SimpleNode {
 
     /**
      * Gets the variable name piece of the expression.
-     * @return a String of the identifer. 
+     * @return a String of the identifer.
      * @see ASTIdentifier#getIdentifierString().
      */
     public String getIdentifierString() {

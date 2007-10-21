@@ -1,9 +1,10 @@
 /*
- * Copyright 2002-2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -22,10 +23,10 @@ public interface ParserConstants {
   int COMMENT = 1;
   int INTEGER_LITERAL = 7;
   int FLOAT_LITERAL = 8;
-  int IDENTIFIER = 58;
-  int LETTER = 59;
-  int DIGIT = 60;
-  int STRING_LITERAL = 61;
+  int IDENTIFIER = 59;
+  int LETTER = 60;
+  int DIGIT = 61;
+  int STRING_LITERAL = 62;
 
   int DEFAULT = 0;
 
@@ -84,9 +85,10 @@ public interface ParserConstants {
     "\"while\"",
     "\"foreach\"",
     "\"in\"",
-    "\",\"",
     "\"[\"",
+    "\",\"",
     "\"]\"",
+    "\"=>\"",
     "\".\"",
     "<IDENTIFIER>",
     "<LETTER>",

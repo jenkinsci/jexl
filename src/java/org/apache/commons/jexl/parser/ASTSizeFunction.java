@@ -1,9 +1,10 @@
 /*
- * Copyright 2002-2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -20,21 +21,21 @@ import java.util.Collection;
 import java.util.Map;
 
 import org.apache.commons.jexl.JexlContext;
-import org.apache.commons.jexl.util.Introspector;
 import org.apache.commons.jexl.util.introspection.Info;
+import org.apache.commons.jexl.util.introspection.Uberspect;
 import org.apache.commons.jexl.util.introspection.VelMethod;
 
 /**
  * generalized size() function for all classes we can think of.
- * 
+ *
  * @author <a href="mailto:geirm@apache.org">Geir Magnusson Jr.</a>
  * @author <a href="hw@kremvax.net">Mark H. Wilkinson</a>
- * @version $Id: ASTSizeFunction.java 398324 2006-04-30 12:20:24Z dion $
+ * @version $Id: ASTSizeFunction.java 548229 2007-06-18 06:11:32Z dion $
  */
 public class ASTSizeFunction extends SimpleNode {
     /**
      * Create the node given an id.
-     * 
+     *
      * @param id node id.
      */
     public ASTSizeFunction(int id) {
@@ -43,7 +44,7 @@ public class ASTSizeFunction extends SimpleNode {
 
     /**
      * Create a node with the given parser and id.
-     * 
+     *
      * @param p a parser.
      * @param id node id.
      */
@@ -66,18 +67,19 @@ public class ASTSizeFunction extends SimpleNode {
             throw new Exception("size() : null arg");
         }
 
-        return new Integer(ASTSizeFunction.sizeOf(val));
+        return new Integer(ASTSizeFunction.sizeOf(val, getUberspect()));
     }
 
     /**
      * Calculate the <code>size</code> of various types: Collection, Array, Map, String,
      * and anything that has a int size() method.
-     * 
+     *
      * @param val the object to get the size of.
+     * @param uberspect
      * @return the size of val
      * @throws Exception if the size cannot be determined.
      */
-    public static int sizeOf(Object val) throws Exception {
+    public static int sizeOf(Object val, Uberspect uberspect) throws Exception {
         if (val instanceof Collection) {
             return ((Collection) val).size();
         } else if (val.getClass().isArray()) {
@@ -92,7 +94,7 @@ public class ASTSizeFunction extends SimpleNode {
             // and if so, just use it
             Object[] params = new Object[0];
             Info velInfo = new Info("", 1, 1);
-            VelMethod vm = Introspector.getUberspect().getMethod(val, "size", params, velInfo);
+            VelMethod vm = uberspect.getMethod(val, "size", params, velInfo);
             if (vm != null && vm.getReturnType() == Integer.TYPE) {
                 Integer result = (Integer) vm.invoke(val, params);
                 return result.intValue();
