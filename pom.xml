@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>commons-jexl</groupId>
+  <groupId>org.jvnet.hudson</groupId>
   <artifactId>commons-jexl</artifactId>
   <name>Commons JEXL</name>
-  <version>1.1-hudson-20061106</version>
+  <version>1.1-hudson-20071021</version>
   <description>Jexl is an implementation of the JSTL Expression Language with extensions.</description>
   <url>http://jakarta.apache.org/commons/jexl/</url>
   <issueManagement>
@@ -192,14 +192,9 @@
   </reporting>
   <distributionManagement>
     <repository>
-      <id>default</id>
-      <name>Default Repository</name>
-      <url>file:///www/jakarta.apache.org/builds/jakarta-commons/jexl/</url>
+      <uniqueVersion>false</uniqueVersion>
+      <id>local-repository</id>
+      <url>file:${path-to-m2-repo.java.net}</url>
     </repository>
-    <site>
-      <id>default</id>
-      <name>Default Site</name>
-      <url>scp://people.apache.org//www/jakarta.apache.org/commons/jexl/</url>
-    </site>
   </distributionManagement>
 </project>
