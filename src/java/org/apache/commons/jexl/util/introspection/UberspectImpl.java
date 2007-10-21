@@ -167,6 +167,10 @@ public class UberspectImpl implements Uberspect, UberspectLoggable {
                     public String getMethodName() {
                         return identifier;
                     }
+
+                    public boolean isAlive() {
+                        return true;
+                    }
                 };
             } catch (NoSuchFieldException e) {
                 // fall through
@@ -323,6 +327,10 @@ public class UberspectImpl implements Uberspect, UberspectLoggable {
          */
         public String getMethodName() {
             return ae.getMethod().getName();
+        }
+
+        public boolean isAlive() {
+            return true;
         }
     }
 
