@@ -1,9 +1,10 @@
 <!--
-   Copyright 2006 The Apache Software Foundation
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -13,7 +14,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-$Id: RELEASE-NOTES.txt 441680 2006-09-08 15:55:31 -0700 (Fri, 08 Sep 2006) rahul $
+$Id: RELEASE-NOTES.txt 561230 2007-07-31 04:17:09Z rahul $
 
                             Commons JEXL Package
                                 Version 1.1
@@ -26,7 +27,7 @@ INTRODUCTION:
 Jexl is an Expression Language supporting most of the constructs in the
 JSTL Expression Language, along with some additional extensions.
 
-http://jakarta.apache.org/commons/jexl/
+http://commons.apache.org/jexl/
 
 Changes in this version include:
 

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!--
-   Copyright 2002-2004 The Apache Software Foundation
-
-   Licensed under the Apache License, Version 2.0 (the "License");
-   you may not use this file except in compliance with the License.
-   You may obtain a copy of the License at
+   Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
 
        http://www.apache.org/licenses/LICENSE-2.0
 
@@ -15,7 +16,7 @@
    See the License for the specific language governing permissions and
    limitations under the License.
   -->
-<!DOCTYPE org.apache.commons.menus SYSTEM 'http://jakarta.apache.org/commons/build/maven-build.dtd'>
+<!DOCTYPE org.apache.commons.menus SYSTEM 'http://commons.apache.org/build/maven-build.dtd'>
 
 <project name="Commons JEXL">
   <title>Commons JEXL</title>
@@ -25,12 +26,12 @@
       <item name="1.1&#xA0;Javadoc"              href="/apidocs-1.1/index.html"/>
       <item name="1.0&#xA0;Javadoc"              href="/apidocs-1.0/index.html"/>
       <item name="Latest&#xA0;Javadoc"           href="/apidocs/index.html"/>
-      <item name="Examples"                      href="http://svn.apache.org/viewvc/jakarta/commons/proper/jexl/trunk/examples/"/>
+      <item name="Examples"                      href="http://svn.apache.org/viewvc/commons/proper/jexl/trunk/examples/"/>
       <item name="Releases and Builds"           href="/releases.html"/>
       <item name="Jar Downloads"                 href="/downloads.html"/>
       <item name="Reference"                     href="/reference/index.html"/>
       <item name="Building"                      href="/building.html"/>
-      <item name="JEXL Wiki"                     href="http://wiki.apache.org/jakarta-commons/JEXL"/>
+      <item name="JEXL Wiki"                     href="http://wiki.apache.org/commons/JEXL"/>
     </menu>
     &commons;
   </body>

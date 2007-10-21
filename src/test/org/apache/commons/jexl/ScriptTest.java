@@ -1,9 +1,10 @@
 /*
- * Copyright 2002-2006 The Apache Software Foundation.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  * 
  *      http://www.apache.org/licenses/LICENSE-2.0
  * 
@@ -26,6 +27,20 @@ import junit.framework.TestCase;
  */
 public class ScriptTest extends TestCase {
 
+    // test class for testScriptUpdatesContext
+    // making this class private static will cause the test to fail.
+    // this is due to unusual code in ClassMap.getAccessibleMethods(Class)
+    // that treats non-public classes in a specific way. Why getAccessibleMethods
+    // does this is not known yet.
+    public static class Tester {
+        private String code;
+        public String getCode () { 
+            return code; 
+        }
+        public void setCode(String c) {
+            code = c;
+        }
+    }
     /**
      * Create a new test case.
      * @param name case name
@@ -66,5 +81,22 @@ public class ScriptTest extends TestCase {
         Object result = s.execute(jc);
         assertNotNull("No result", result);
         assertEquals("Wrong result", new Long(7), result);
+    }
+    
+    public void testScriptUpdatesContext() throws Exception {
+        String jexlCode = "resultat.setCode('OK')";
+        Expression e = ExpressionFactory.createExpression(jexlCode);
+        Script s = ScriptFactory.createScript(jexlCode);
+
+        Tester resultatJexl = new Tester();
+        JexlContext jc = JexlHelper.createContext();
+        jc.getVars().put("resultat", resultatJexl);
+
+        resultatJexl.setCode("");
+        e.evaluate(jc);
+        assertEquals("OK", resultatJexl.getCode());
+        resultatJexl.setCode("");
+        s.execute(jc);
+        assertEquals("OK", resultatJexl.getCode());
     }
 }

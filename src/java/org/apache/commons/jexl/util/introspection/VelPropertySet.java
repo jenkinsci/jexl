@@ -1,9 +1,10 @@
 /*
- * Copyright 2002,2004 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -21,15 +22,15 @@ package org.apache.commons.jexl.util.introspection;
  * Ex.
  * 
  * #set($foo.bar = "hello")
- * 
+ *
  * @since 1.0
  * @author <a href="mailto:geirm@optonline.net">Geir Magnusson Jr.</a>
- * @version $Id: VelPropertySet.java 398515 2006-05-01 03:46:33Z dion $
+ * @version $Id: VelPropertySet.java 584046 2007-10-12 05:14:37Z proyal $
  */
 public interface VelPropertySet {
     /**
      * method used to set the value in the object.
-     * 
+     *
      * @param o Object on which the method will be called with the arg
      * @param arg value to be set
      * @return the value returned from the set operation (impl specific)
@@ -40,7 +41,7 @@ public interface VelPropertySet {
     /**
      * specifies if this VelPropertySet is cacheable and able to be reused for
      * this class of object it was returned for.
-     * 
+     *
      * @return true if can be reused for this class, false if not
      */
     boolean isCacheable();

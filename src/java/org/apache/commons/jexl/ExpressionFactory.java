@@ -1,9 +1,10 @@
 /*
- * Copyright 2002-2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -23,9 +24,12 @@ import org.apache.commons.jexl.parser.ASTIfStatement;
 import org.apache.commons.jexl.parser.ASTReferenceExpression;
 import org.apache.commons.jexl.parser.ASTStatementExpression;
 import org.apache.commons.jexl.parser.ASTWhileStatement;
+import org.apache.commons.jexl.parser.ParseException;
 import org.apache.commons.jexl.parser.Parser;
 import org.apache.commons.jexl.parser.SimpleNode;
 import org.apache.commons.jexl.parser.TokenMgrError;
+import org.apache.commons.jexl.util.Introspector;
+import org.apache.commons.jexl.util.introspection.Uberspect;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -47,13 +51,13 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * @since 1.0
  * @author <a href="mailto:geirm@apache.org">Geir Magnusson Jr.</a>
- * @version $Id: ExpressionFactory.java 429169 2006-08-06 11:36:29 -0700 (Sun, 06 Aug 2006) rahul $
+ * @version $Id: ExpressionFactory.java 548229 2007-06-18 06:11:32Z dion $
  */
 public class ExpressionFactory {
     /**
      * The Log to which all ExpressionFactory messages will be logged.
      */
-    protected static Log log =
+    protected static final Log log =
         LogFactory.getLog("org.apache.commons.jexl.ExpressionFactory");
 
     /**
@@ -61,27 +65,36 @@ public class ExpressionFactory {
      * {@link Parser}.
      * When parsing expressions, ExpressionFactory synchronizes on Parser.
      */
-    protected static Parser parser =
+    protected final Parser parser =
             new Parser(new StringReader(";")); //$NON-NLS-1$
 
     /**
      * ExpressionFactory is a singleton and this is the private
      * instance fufilling that pattern.
      */
-    protected static ExpressionFactory ef = new ExpressionFactory();
+    protected static final ExpressionFactory ef = new ExpressionFactory();
 
     /**
      * Private constructor, the single instance is always obtained
      * with a call to getInstance().
      */
     private ExpressionFactory() {
+        this(Introspector.getUberspect());
+    }
+
+    /**
+     * Creates an expression factory using the provided {@link Uberspect}.
+     * @param uberspect to allow different introspection behaviour
+     */
+    public ExpressionFactory(Uberspect uberspect) {
+        parser.setUberspect(uberspect);
     }
 
     /**
      * Returns the single instance of ExpressionFactory.
      * @return the instance of ExpressionFactory.
      */
-    protected static  ExpressionFactory getInstance() {
+    public static ExpressionFactory getInstance() {
         return ef;
     }
 
@@ -109,7 +122,7 @@ public class ExpressionFactory {
      *  @throws Exception for a variety of reasons - mostly malformed
      *          Jexl expression
      */
-    protected Expression createNewExpression(final String expression)
+    public Expression createNewExpression(final String expression)
         throws Exception {
 
         String expr = cleanExpression(expression);
@@ -120,11 +133,8 @@ public class ExpressionFactory {
             log.debug("Parsing expression: " + expr);
             try {
                 tree = parser.parse(new StringReader(expr));
-            } catch (TokenMgrError e) {
-                // this is thrown if there's syntax error.
-                // most callers aren't expecting the parsing error to be this fatal,
-                // so let's wrap it to Exception (not Error) to let the caller catch it
-                throw new JexlException("Failed to parse "+expr,e);
+            } catch (TokenMgrError tme) {
+                throw new ParseException(tme.getMessage());
             }
         }
 

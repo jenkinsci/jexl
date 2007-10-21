@@ -1,9 +1,10 @@
 /*
- * Copyright 2000-2002,2004 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -69,7 +70,7 @@ public class PropertyExecutor extends AbstractExecutor {
 
             /*
              *  start with get<property>
-             *  this leaves the property name 
+             *  this leaves the property name
              *  as is...
              */
             sb = new StringBuffer("get");
@@ -78,17 +79,14 @@ public class PropertyExecutor extends AbstractExecutor {
             methodUsed = sb.toString();
 
             method = introspector.getMethod(clazz, methodUsed, params);
-             
+
             if (method != null) {
                 return;
             }
-        
+
             /*
              *  now the convenience, flip the 1st character
              */
-         
-            sb = new StringBuffer("get");
-            sb.append(property);
 
             c = sb.charAt(PROPERTY_START_INDEX);
 
@@ -104,8 +102,12 @@ public class PropertyExecutor extends AbstractExecutor {
             if (method != null) {
                 return;
             }
-            
-        } catch (Exception e) {
+        /**
+         * pass through application level runtime exceptions
+         */
+        } catch( RuntimeException e ) {
+            throw e;
+        } catch(Exception e) {
             rlog.error("PROGRAMMER ERROR : PropertyExector() : " + e);
         }
     }

@@ -1,9 +1,10 @@
 /*
- * Copyright 2002-2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -20,9 +21,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import org.apache.commons.jexl.JexlContext;
-import org.apache.commons.jexl.util.Introspector;
-import org.apache.commons.jexl.util.introspection.VelMethod;
 import org.apache.commons.jexl.util.introspection.Info;
+import org.apache.commons.jexl.util.introspection.VelMethod;
 
 /**
  * Method execution.
@@ -33,7 +33,7 @@ public class ASTMethod extends SimpleNode {
 
     /**
      * Create the node given an id.
-     * 
+     *
      * @param id node id.
      */
     public ASTMethod(int id) {
@@ -42,7 +42,7 @@ public class ASTMethod extends SimpleNode {
 
     /**
      * Create a node with the given parser and id.
-     * 
+     *
      * @param p a parser.
      * @param id node id.
      */
@@ -57,9 +57,9 @@ public class ASTMethod extends SimpleNode {
 
     /**
      * evaluate a method invocation upon a base object.
-     * 
+     *
      * foo.bar(2)
-     * 
+     *
      * @param jc the {@link JexlContext} to evaluate against.
      * @param obj The object to have the method invoked.
      * @return the value of the method invocation.
@@ -81,7 +81,7 @@ public class ASTMethod extends SimpleNode {
                 params[i] = ((SimpleNode) jjtGetChild(i + 1)).value(jc);
             }
 
-            VelMethod vm = Introspector.getUberspect().getMethod(obj, methodName, params, DUMMY);
+            VelMethod vm = getUberspect().getMethod(obj, methodName, params, DUMMY);
             /*
              * DG: If we can't find an exact match, narrow the parameters and
              * try again!
@@ -95,7 +95,7 @@ public class ASTMethod extends SimpleNode {
                         params[i] = narrow((Number) param);
                     }
                 }
-                vm = Introspector.getUberspect().getMethod(obj, methodName, params, DUMMY);
+                vm = getUberspect().getMethod(obj, methodName, params, DUMMY);
                 if (vm == null) {
                     return null;
                 }
@@ -119,7 +119,7 @@ public class ASTMethod extends SimpleNode {
      * method calls, e.g. a call to substring(int,int) with an int and a long
      * will fail, but a call to substring(int,int) with an int and a short will
      * succeed.
-     * 
+     *
      * @param original the original number.
      * @return a value of the smallest type the original number will fit into.
      * @since 1.1

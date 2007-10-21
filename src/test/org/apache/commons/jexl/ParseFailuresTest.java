@@ -1,9 +1,10 @@
-/*
- * Copyright 2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+/**
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -41,7 +42,7 @@ public class ParseFailuresTest extends TestCase {
         // this will throw a ParseException
         String badExpression = "eq";
         try {
-            Expression e = ExpressionFactory.createExpression(badExpression);
+            ExpressionFactory.createExpression(badExpression);
             fail("Parsing \"" + badExpression
                 + "\" should result in a ParseException");
         } catch (ParseException pe) {
@@ -53,12 +54,10 @@ public class ParseFailuresTest extends TestCase {
         // this will throw a TokenMgrErr, which we rethrow as a ParseException
         String badExpression = "?";
         try {
-            Expression e = ExpressionFactory.createExpression(badExpression);
+            ExpressionFactory.createExpression(badExpression);
             fail("Parsing \"" + badExpression
                 + "\" should result in a ParseException");
         } catch (ParseException pe) {
-            // expected
-        } catch (JexlException pe) {
             // expected
         }
     }
@@ -67,7 +66,7 @@ public class ParseFailuresTest extends TestCase {
         // this will throw a TokenMgrErr, which we rethrow as a ParseException
         String badScript = "eq";
         try {
-            Script s = ScriptFactory.createScript(badScript);
+            ScriptFactory.createScript(badScript);
             fail("Parsing \"" + badScript
                 + "\" should result in a ParseException");
         } catch (ParseException pe) {
@@ -80,7 +79,7 @@ public class ParseFailuresTest extends TestCase {
         // this will throw a TokenMgrErr, which we rethrow as a ParseException
         String badScript = "?";
         try {
-            Script s = ScriptFactory.createScript(badScript);
+            ScriptFactory.createScript(badScript);
             fail("Parsing \"" + badScript
                 + "\" should result in a ParseException");
         } catch (ParseException pe) {
@@ -92,7 +91,7 @@ public class ParseFailuresTest extends TestCase {
         // this will throw a TokenMgrErr, which we rethrow as a ParseException
         String badScript = "foo=1;bar=2;a?b:c;";
         try {
-            Script s = ScriptFactory.createScript(badScript);
+            ScriptFactory.createScript(badScript);
             fail("Parsing \"" + badScript
                 + "\" should result in a ParseException");
         } catch (ParseException pe) {

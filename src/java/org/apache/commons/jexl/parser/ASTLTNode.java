@@ -1,9 +1,10 @@
 /*
- * Copyright 2002-2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -26,7 +27,7 @@ import org.apache.commons.jexl.util.Coercion;
  * 
  * @author <a href="mailto:geirm@apache.org">Geir Magnusson Jr.</a>
  * @author <a href="mailto:proyal@apache.org">Peter Royal</a>
- * @version $Id: ASTLTNode.java 398203 2006-04-29 16:44:55Z dion $
+ * @version $Id: ASTLTNode.java 480412 2006-11-29 05:11:23Z bayard $
  */
 public class ASTLTNode extends SimpleNode {
     /**

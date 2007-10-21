@@ -1,9 +1,10 @@
 /*
- * Copyright 2002-2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -19,9 +20,9 @@ import org.apache.commons.jexl.JexlContext;
 
 /**
  * represents an integer.
- * 
+ *
  * @author <a href="mailto:geirm@apache.org">Geir Magnusson Jr.</a>
- * @version $Id: ASTIntegerLiteral.java 398202 2006-04-29 16:40:34Z dion $
+ * @version $Id: ASTIntegerLiteral.java 548229 2007-06-18 06:11:32Z dion $
  */
 public class ASTIntegerLiteral extends SimpleNode {
     /** literal value. */
@@ -29,7 +30,7 @@ public class ASTIntegerLiteral extends SimpleNode {
 
     /**
      * Create the node given an id.
-     * 
+     *
      * @param id node id.
      */
     public ASTIntegerLiteral(int id) {
@@ -38,7 +39,7 @@ public class ASTIntegerLiteral extends SimpleNode {
 
     /**
      * Create a node with the given parser and id.
-     * 
+     *
      * @param p a parser.
      * @param id node id.
      */
@@ -59,10 +60,10 @@ public class ASTIntegerLiteral extends SimpleNode {
      * @param ctx the {@link JexlContext}.
      * @throws Exception on any error.
      * @return the resulting value.
-     * @see ASTArrayAccess#evaluateExpr(Object, Object)
+     * @see ASTArrayAccess#evaluateExpr(Object, Object, Uberspect)
      */
     public Object execute(Object obj, JexlContext ctx) throws Exception {
-        return ASTArrayAccess.evaluateExpr(obj, val);
+        return ASTArrayAccess.evaluateExpr(obj, val, getUberspect());
     }
 
     /** {@inheritDoc} */

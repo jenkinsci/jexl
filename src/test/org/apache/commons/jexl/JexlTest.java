@@ -1,9 +1,10 @@
 /*
- * Copyright 2002,2004 The Apache Software Foundation.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  * 
  *      http://www.apache.org/licenses/LICENSE-2.0
  * 
@@ -21,7 +22,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.Calendar;
-import java.util.Collections;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -43,7 +43,7 @@ import org.apache.commons.jexl.resolver.FlatResolver;
  *
  *  @since 1.0
  *  @author <a href="mailto:geirm@apache.org">Geir Magnusson Jr.</a>
- *  @version $Id: JexlTest.java 391888 2006-04-06 03:34:59Z dion $
+ *  @version $Id: JexlTest.java 548229 2007-06-18 06:11:32Z dion $
  */
 public class JexlTest extends TestCase
 {
@@ -327,8 +327,9 @@ public class JexlTest extends TestCase
     public void testSizeAsProperty() throws Exception
     {
         JexlContext jc = JexlHelper.createContext();
-
-        jc.getVars().put("map", Collections.singletonMap( "size", "cheese"));
+        Map map = new HashMap();
+        map.put("size", "cheese");
+        jc.getVars().put("map", map);
         jc.getVars().put("foo", new Foo());
 
         assertExpression(jc, "map['size']", "cheese");
@@ -751,7 +752,8 @@ public class JexlTest extends TestCase
     public void testEmptySubListOfMap() throws Exception
     {
         JexlContext jc = JexlHelper.createContext();
-        Map m = Collections.singletonMap("aList", Collections.EMPTY_LIST);
+        Map m = new HashMap();
+        m.put("aList", new ArrayList());
 
         jc.getVars().put( "aMap", m );
 
@@ -963,6 +965,11 @@ public class JexlTest extends TestCase
 //        String version = "1.0.3";
 //        jc.getVars().put("commons-logging", version);
 //        assertExpression(jc, "commons-logging", version);
+    }
+    
+    public void testUnicodeSupport() throws Exception
+    {
+        assertExpression(JexlHelper.createContext(), "myvar == 'Użytkownik'", Boolean.FALSE);
     }
 
     /**

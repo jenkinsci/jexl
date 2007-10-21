@@ -1,9 +1,10 @@
 /*
- * Copyright 2001-2006 The Apache Software Foundation.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
  *      http://www.apache.org/licenses/LICENSE-2.0
  *
@@ -26,7 +27,7 @@ import org.apache.commons.logging.Log;
  * object for a particular class given the name of a method
  * and the parameters to the method in the form of an Object[]
  *
- * The first time the Introspector sees a 
+ * The first time the Introspector sees a
  * class it creates a class method map for the
  * class in question. Basically the class method map
  * is a Hashtable where Method objects are keyed by a
@@ -42,13 +43,13 @@ import org.apache.commons.logging.Log;
  * "method" + "java.lang.String" + "java.lang.StringBuffer"
  *
  * This mapping is performed for all the methods in a class
- * and stored for 
+ * and stored for
  * @since 1.0
  * @author <a href="mailto:jvanzyl@apache.org">Jason van Zyl</a>
  * @author <a href="mailto:bob@werken.com">Bob McWhirter</a>
  * @author <a href="mailto:szegedia@freemail.hu">Attila Szegedi</a>
  * @author <a href="mailto:paulo.gaspar@krankikom.de">Paulo Gaspar</a>
- * @version $Id: Introspector.java 398171 2006-04-29 14:57:29Z dion $
+ * @version $Id: Introspector.java 584046 2007-10-12 05:14:37Z proyal $
  */
 public class Introspector extends IntrospectorBase {
     /**
@@ -56,7 +57,7 @@ public class Introspector extends IntrospectorBase {
      *  if interested.
      */
 
-    public static final String CACHEDUMP_MSG = 
+    public static final String CACHEDUMP_MSG =
         "Introspector : detected classloader change. Dumping cache.";
 
     /**
@@ -69,9 +70,10 @@ public class Introspector extends IntrospectorBase {
      *  @param logger a {@link Log}.
      */
     public Introspector(Log logger) {
+        super(logger);
         this.rlog = logger;
     }
-   
+
     /**
      * Gets the method defined by <code>name</code> and
      * <code>params</code> for the Class <code>c</code>.
@@ -82,9 +84,9 @@ public class Introspector extends IntrospectorBase {
      *               the parameters
      *
      * @return The desired Method object.
-     * @throws Exception if the superclass does.
+     * @throws IllegalArgumentException When the parameters passed in can not be used for introspection.
      */
-    public Method getMethod(Class c, String name, Object[] params) throws Exception {
+    public Method getMethod(Class c, String name, Object[] params) throws IllegalArgumentException {
         /*
          *  just delegate to the base class
          */
@@ -103,12 +105,12 @@ public class Introspector extends IntrospectorBase {
                 if (i > 0) {
                     msg.append(", ");
                 }
-                
-                msg.append(params[i].getClass().getName());
+
+                msg.append(null == params[i] ? "null" : params[i].getClass().getName());
             }
-            
+
             msg.append(") for class ").append(c.getName());
-            
+
             rlog.error(msg.toString());
         }
 
