@@ -26,6 +26,7 @@ import org.apache.commons.logging.Log;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 import java.util.Iterator;
 import java.util.Collection;
 import java.util.Map;
@@ -123,7 +124,7 @@ public class UberspectImpl implements Uberspect, UberspectLoggable {
     /**
      * {@inheritDoc}
      */
-    public VelPropertyGet getPropertyGet(Object obj, String identifier, Info i) throws Exception {
+    public VelPropertyGet getPropertyGet(Object obj, final String identifier, Info i) throws Exception {
         AbstractExecutor executor;
 
         Class claz = obj.getClass();
@@ -149,6 +150,29 @@ public class UberspectImpl implements Uberspect, UberspectLoggable {
         if (!executor.isAlive()) {
             executor = new GetExecutor(rlog, introspector, claz, identifier);
         }
+
+        // finally field
+        if (!executor.isAlive()) {
+            try {
+                final Field field = obj.getClass().getField(identifier);
+                return new VelPropertyGet() {
+                    public Object invoke(Object o) throws Exception {
+                        return field.get(o);
+                    }
+
+                    public boolean isCacheable() {
+                        return false;
+                    }
+
+                    public String getMethodName() {
+                        return identifier;
+                    }
+                };
+            } catch (NoSuchFieldException e) {
+                // fall through
+            }
+        }
+
 
         return (executor == null) ? null : new VelGetterImpl(executor);
     }

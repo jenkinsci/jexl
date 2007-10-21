@@ -23,7 +23,6 @@ import org.apache.commons.jexl.parser.ASTIfStatement;
 import org.apache.commons.jexl.parser.ASTReferenceExpression;
 import org.apache.commons.jexl.parser.ASTStatementExpression;
 import org.apache.commons.jexl.parser.ASTWhileStatement;
-import org.apache.commons.jexl.parser.ParseException;
 import org.apache.commons.jexl.parser.Parser;
 import org.apache.commons.jexl.parser.SimpleNode;
 import org.apache.commons.jexl.parser.TokenMgrError;
@@ -48,7 +47,7 @@ import org.apache.commons.logging.LogFactory;
  * </p>
  * @since 1.0
  * @author <a href="mailto:geirm@apache.org">Geir Magnusson Jr.</a>
- * @version $Id: ExpressionFactory.java 429169 2006-08-06 18:36:29Z rahul $
+ * @version $Id: ExpressionFactory.java 429169 2006-08-06 11:36:29 -0700 (Sun, 06 Aug 2006) rahul $
  */
 public class ExpressionFactory {
     /**
@@ -121,8 +120,11 @@ public class ExpressionFactory {
             log.debug("Parsing expression: " + expr);
             try {
                 tree = parser.parse(new StringReader(expr));
-            } catch (TokenMgrError tme) {
-                throw new ParseException(tme.getMessage());
+            } catch (TokenMgrError e) {
+                // this is thrown if there's syntax error.
+                // most callers aren't expecting the parsing error to be this fatal,
+                // so let's wrap it to Exception (not Error) to let the caller catch it
+                throw new JexlException("Failed to parse "+expr,e);
             }
         }
 

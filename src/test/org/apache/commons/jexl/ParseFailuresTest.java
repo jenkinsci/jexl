@@ -58,6 +58,8 @@ public class ParseFailuresTest extends TestCase {
                 + "\" should result in a ParseException");
         } catch (ParseException pe) {
             // expected
+        } catch (JexlException pe) {
+            // expected
         }
     }
 
