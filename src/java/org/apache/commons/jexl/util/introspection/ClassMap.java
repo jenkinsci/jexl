@@ -138,9 +138,12 @@ public class ClassMap {
                         // implement them anyway (else it wouldn't be implementing the interface). If we find an abstract
                         // method in a non-interface, we skip it, because we do want to make sure that no abstract methods end up in
                         // the cache.
-                        if (classToReflect.isInterface() || !Modifier.isAbstract(modifiers)) {
+// KK:                  if (classToReflect.isInterface() || !Modifier.isAbstract(modifiers)) {
                             methodCache.put(methods[i]);
-                        }
+// KK:                  }
+// KK: this abstract check prevents us from having a public base class definining a public abstract method
+// and use private subclass to implement that. When we actually try to invoke the method on an object,
+// we can reasonably expect that all the abstract methods are implemented. 
                     }
                 }
             }
