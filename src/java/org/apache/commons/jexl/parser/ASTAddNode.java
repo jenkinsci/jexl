@@ -68,6 +68,13 @@ public class ASTAddNode extends SimpleNode {
             return new Long(0);
         }
 
+        // Kohsuke addition - handle null gracefully
+        if (left == null)
+            return right;
+        if (right == null)
+            return left;
+        // Kohsuke addition until here
+
         /*
          *  if anything is float, double or string with ( "." | "E" | "e")
          *  coerce all to doubles and do it
