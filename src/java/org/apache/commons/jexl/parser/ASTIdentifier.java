@@ -18,6 +18,7 @@
 package org.apache.commons.jexl.parser;
 
 import org.apache.commons.jexl.JexlContext;
+import org.apache.commons.jexl.util.introspection.Uberspect;
 
 /**
  * Simple identifier - $foo or $foo.bar (both parts are identifiers).
