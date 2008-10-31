@@ -143,15 +143,7 @@ public class UberspectImpl implements Uberspect, UberspectLoggable {
             executor = new BooleanPropertyExecutor(rlog, introspector, claz, identifier);
         }
 
-        /*
-         * if that didn't work, look for get("foo")
-         */
-
-        if (!executor.isAlive()) {
-            executor = new GetExecutor(rlog, introspector, claz, identifier);
-        }
-
-        // finally field
+        // llok for field
         if (!executor.isAlive()) {
             try {
                 final Field field = obj.getClass().getField(identifier);
@@ -177,6 +169,13 @@ public class UberspectImpl implements Uberspect, UberspectLoggable {
             }
         }
 
+        /*
+         * if that didn't work, look for get("foo")
+         */
+
+        if (!executor.isAlive()) {
+            executor = new GetExecutor(rlog, introspector, claz, identifier);
+        }
 
         return (executor == null) ? null : new VelGetterImpl(executor);
     }
