@@ -431,7 +431,7 @@ public class JexlTest extends TestCase
          * test new null coersion
          */
         jc.getVars().put("imanull", null );
-        assertExpression(jc, "imanull + 2", new Long(2));
+        assertExpression(jc, "imanull + 2", new Integer(2));
         assertExpression(jc, "imanull + imanull", new Long(0));
         
         /* test for bugzilla 31577 */
