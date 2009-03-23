@@ -61,6 +61,24 @@
           <target>1.2</target>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javacc-maven-plugin</artifactId>
+        <version>2.5</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>jjtree-javacc</goal>
+            </goals>
+            <configuration>
+              <sourceDirectory>src/java</sourceDirectory>
+              <includes>
+                <include>org/apache/commons/jexl/parser/*.jjt</include>
+              </includes>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
     </plugins>
     <extensions>
       <extension>

@@ -89,16 +89,17 @@ public class ParseFailuresTest extends TestCase {
         }
     }
 
-    public void testMalformedScript3() throws Exception {
-        // this will throw a TokenMgrErr, which we rethrow as a ParseException
-        String badScript = "foo=1;bar=2;a?b:c;";
-        try {
-            ScriptFactory.createScript(badScript);
-            fail("Parsing \"" + badScript
-                + "\" should result in a ParseException");
-        } catch (ParseException pe) {
-            // expected
-        }
-    }
+// KOHSUKE - Elvis operator is now supported
+//    public void testMalformedScript3() throws Exception {
+//        // this will throw a TokenMgrErr, which we rethrow as a ParseException
+//        String badScript = "foo=1;bar=2;a?b:c;";
+//        try {
+//            ScriptFactory.createScript(badScript);
+//            fail("Parsing \"" + badScript
+//                + "\" should result in a ParseException");
+//        } catch (ParseException pe) {
+//            // expected
+//        }
+//    }
 
 }

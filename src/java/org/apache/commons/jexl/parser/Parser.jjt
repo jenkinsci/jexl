@@ -40,12 +40,13 @@ package org.apache.commons.jexl.parser;
 import java.io.Reader;
 import java.io.ByteArrayInputStream;
 
+import org.apache.commons.jexl.util.Introspector;
 import org.apache.commons.jexl.util.introspection.Uberspect;
 
 public class Parser
 {
 
-    private Uberspect uberspect;
+    private Uberspect uberspect = Introspector.getUberspect();
 
     public void setUberspect(Uberspect uberspect)
     {
@@ -148,13 +149,24 @@ void Expression() : {}
   LOOKAHEAD( PrimaryExpression() "=" )
   Assignment()
 |
-  ConditionalOrExpression()
+  ElvisExpression()
 }
 
 void Assignment() #Assignment(2) :
 {}
 {
   PrimaryExpression() "=" Expression()
+}
+
+void ElvisExpression() #void :
+{}
+{
+  ConditionalOrExpression()
+  (
+    "?:" Expression() #ElvisNode(2)
+  |
+    "?" Expression() ":" Expression() #TernaryNode(3)
+  )?
 }
 
 void ConditionalOrExpression() #void :
