@@ -18,6 +18,7 @@
 package org.apache.commons.jexl.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 import org.apache.commons.logging.Log;
 
@@ -78,7 +79,11 @@ public class GetExecutor extends AbstractExecutor {
             return null;
         }
 
-        return method.invoke(o, args);
+        try {
+            return method.invoke(o, args);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Failed to invoke "+method+" on "+o+" with "+ Arrays.asList(args),e);
+        }
     }
 
 }
