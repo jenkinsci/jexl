@@ -132,7 +132,7 @@ public class ClassMap {
                     // Strictly spoken that check shouldn't be necessary
                     // because getMethods only returns public methods.
                     int modifiers = methods[i].getModifiers();
-                    if (Modifier.isPublic(modifiers)) //  && !)
+                    if (Modifier.isPublic(modifiers) && (modifiers&ACC_BRIDGE)==0) //  && !)
                     {
                         // Some of the interfaces contain abstract methods. That is fine, because the actual object must
                         // implement them anyway (else it wouldn't be implementing the interface). If we find an abstract
@@ -306,4 +306,6 @@ public class ClassMap {
             return methodKey.toString();
         }
     }
+
+    private static final int ACC_BRIDGE = 0x00000040;
 }
